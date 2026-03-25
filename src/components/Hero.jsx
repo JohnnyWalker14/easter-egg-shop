@@ -2,6 +2,13 @@ import React from 'react';
 import { Box, Typography, Button, Container } from '@mui/material';
 
 const Hero = () => {
+  const scrollToProducts = () => {
+    const productsSection = document.getElementById('products');
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -28,7 +35,12 @@ const Hero = () => {
           The perfect gifts for your loved ones this spring!
         </Typography>
         <Box sx={{ mt: 4 }}>
-          <Button variant="contained" color="primary" size="large">
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={scrollToProducts}
+          >
             Shop Now
           </Button>
         </Box>

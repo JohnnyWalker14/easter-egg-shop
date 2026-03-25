@@ -1,7 +1,20 @@
-import React from 'react';
-import { Card, CardMedia, CardContent, Typography, CardActions, Button } from '@mui/material';
+import React, { useState } from 'react';
+import { Card, CardMedia, CardContent, Typography, CardActions, Button, Snackbar, Alert } from '@mui/material';
+import { useCart } from '../context/CartContext';
 
 const ProductCard = ({ product }) => {
+  const { addToCart } = useCart();
+  const [open, setOpen] = useState(false);
+
+  const handleAddToCart = () => {
+    addToCart(product);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <CardMedia
@@ -22,10 +35,21 @@ const ProductCard = ({ product }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" color="primary" variant="contained">
+        <Button
+          size="small"
+          color="primary"
+          variant="contained"
+          onClick={handleAddToCart}
+          fullWidth
+        >
           Add to Cart
         </Button>
       </CardActions>
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          {product.name} added to cart!
+        </Alert>
+      </Snackbar>
     </Card>
   );
 };
